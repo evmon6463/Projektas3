@@ -250,4 +250,5 @@ void informacijos_isvedimas(const vector<studentas> &studentai) {
 int main() {
     vector<studentas> studentai = ivesti_studentai();
     informacijos_isvedimas(studentai);
+
 }
