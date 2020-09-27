@@ -1,9 +1,11 @@
 #include <iostream>
 #include <iomanip>
+#include <fstream>
 #include <algorithm>
 #include <stdlib.h>
 #include <string>
 #include <vector>
+#include <sstream>
 
 using std::string;
 using std::cout;
@@ -121,7 +123,7 @@ float mediana(studentas st) {
     int size = st.nd_rezultatai.size();
     sort(st.nd_rezultatai.begin(), st.nd_rezultatai.end());
     if (size % 2 == 0) {
-        mediana = ((st.nd_rezultatai[size / 2 - 1] + st.nd_rezultatai[size / 2]) / 2.0);
+        mediana = ((st.nd_rezultatai[size / 2 + 1] + st.nd_rezultatai[size / 2]) / 2.0);
         return mediana;
     } else {
         mediana = st.nd_rezultatai[size / 2];
@@ -194,6 +196,7 @@ vector<studentas> sukurti_ivesta_studenta(vector<studentas> studentai, struct st
     studentai.push_back(students);
     return studentai;
 }
+
 vector<studentas> ivesti_studentai() {
     vector<studentas> studentai;
     studentai.reserve(1000000);
@@ -230,6 +233,59 @@ vector<studentas> ivesti_studentai() {
     return studentai;
 }
 
+void prideti_prie_vektoriaus(vector<string> &zodziai, const string &word);
+
+vector<string> isskaidyk_String(const string &str) {
+    vector<string> zodziai;
+    string zodis;
+    for (auto x : str) {
+        if (x == ' ') {
+            prideti_prie_vektoriaus(zodziai, zodis);
+            zodis = "";
+        } else {
+            zodis += x;
+        }
+    }
+    prideti_prie_vektoriaus(zodziai, zodis);
+    return zodziai;
+}
+
+void prideti_prie_vektoriaus(vector<string> &zodziai, const string &word) {
+    if (!word.empty()) {
+        zodziai.reserve(100);
+        zodziai.push_back(word);
+    }
+}
+
+bool yra_skaicius(vector<string> studento_irasas, int ilgis) {
+    for (int i = 2; i < ilgis; i++) {
+        if (!studento_irasas.at(i).find_first_not_of("0123456789")) {
+            return true;
+        }
+    }
+    return false;
+}
+
+bool ar_atitinka_intervala(vector<string> studento_irasas, int ilgis) {
+    for (int i = 2; i < ilgis; i++) {
+        if (stoi(studento_irasas.at(i)) < 0 || stoi(studento_irasas.at(i)) > 10)
+            return true;
+    }
+    return false;
+}
+
+studentas sukurti_nuskaityta_studenta(vector<string> studento_irasas, int ilgis) {
+    studentas studentas;
+    studentas.Vardas = studento_irasas.at(0);
+    studentas.Pavarde = studento_irasas.at(1);
+    studentas.nd_rezultatai.reserve(100);
+    for (int i = 2; i < ilgis - 1; i++) {
+        studentas.nd_rezultatai.push_back(stoi(studento_irasas.at(i)));
+    }
+    studentas.egzamino_rezultatas = stoi(studento_irasas.at(ilgis - 1));
+    return studentas;
+}
+
 void informacijos_isvedimas(const vector<studentas> &studentai) {
     cout.width(20);
     cout << left << "Vardas" << setw(20) << "Pavarde" << setw(20) << "Galutinis vidurkis"
@@ -247,8 +303,59 @@ void informacijos_isvedimas(const vector<studentas> &studentai) {
     }
 }
 
-int main() {
-    vector<studentas> studentai = ivesti_studentai();
-    informacijos_isvedimas(studentai);
+void rusiavimas(vector<studentas> &studentai) {
+    std::sort(studentai.begin(), studentai.end(), [](const studentas &s1, const studentas &s2) {
+        if (s1.Vardas.find("0123456789")) {
+            if (s1.Vardas.size() != s2.Vardas.size()) {
+                return (s1.Vardas.length() < s2.Vardas.length());
+            }
+        }
+        return (s1.Vardas < s2.Vardas);
+    });
+}
 
+void nuskaityto_studento_duomenys(std::ifstream &myfile, string line) {
+    vector<studentas> studentai;
+    vector<string> nuskaityta_eilute;
+    if (myfile.is_open()) {
+        while (getline(myfile, line)) {
+            std::stringstream lineStream(line);
+            string eilute;
+            std::getline(lineStream, eilute);
+            nuskaityta_eilute = isskaidyk_String(eilute);
+            int ilgis = nuskaityta_eilute.size();
+            if (yra_skaicius(nuskaityta_eilute, ilgis) || ar_atitinka_intervala(nuskaityta_eilute, ilgis)) {
+                cout << "Klaidingai ivesti pazymiai";
+                exit(0);
+            }
+            studentai.push_back(sukurti_nuskaityta_studenta(nuskaityta_eilute, ilgis));
+        }
+        rusiavimas(studentai);
+
+        informacijos_isvedimas(studentai);
+    } else cout << "Unable to open file";
+    myfile.close();
+}
+
+int main() {
+    string line;
+    string atsakymas;
+    bool ar = true;
+
+    cout << "Ar norite patys ivesti duomenis?" << endl;
+    while (ar){
+        cin >> atsakymas;
+        if (atsakymas == "ne" || atsakymas == "Ne" || atsakymas == "NE") {
+            std::ifstream myfile("kursiokai.txt");
+            std::getline(myfile, line);
+            nuskaityto_studento_duomenys(myfile, line);
+            ar = false;
+        } else if (atsakymas == "taip" || atsakymas == "Taip" || atsakymas == "TAIP") {
+            vector<studentas> studentai = ivesti_studentai();
+            informacijos_isvedimas(studentai);
+            ar = false;
+        } else {
+            cout << "Klaida. Iveskite taip arba ne"<<endl;
+        }
+    }
 }
