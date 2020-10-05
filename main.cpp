@@ -6,6 +6,7 @@
 #include <string>
 #include <vector>
 #include <sstream>
+#include "random.h"
 
 using std::string;
 using std::cout;
@@ -30,10 +31,10 @@ struct studentas {
     float mediana;
 };
 
-int random() {
+/*int random() {
     int randomNumber = rand() % 10 + 1;
     return randomNumber;
-}
+}*/
 
 int patikrink_egzamino_pazymi(string skaicius_string) {
     while (true) {
@@ -304,14 +305,15 @@ void informacijos_isvedimas(const vector<studentas> &studentai) {
 }
 
 void rusiavimas(vector<studentas> &studentai) {
-    std::sort(studentai.begin(), studentai.end(), [](const studentas &s1, const studentas &s2) {
+    sort(studentai.begin(), studentai.end(), [](const studentas &s1, const studentas &s2) {
         if (s1.Vardas.find("0123456789")) {
             if (s1.Vardas.size() != s2.Vardas.size()) {
                 return (s1.Vardas.length() < s2.Vardas.length());
             }
         }
         return (s1.Vardas < s2.Vardas);
-    });
+    }
+    );
 }
 
 void nuskaityto_studento_duomenys(std::ifstream &myfile, string line) {
