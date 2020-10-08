@@ -1,4 +1,43 @@
 #include <iostream>
+#include <fstream>
+#include <string>
+#include <vector>
+#include "studentas.h"
+#include "isvedimas.h"
+#include "studentai.h"
+
+using std::string;
+using std::cout;
+using std::endl;
+using std::cin;
+using std::vector;
+
+
+int main() {
+    string line;
+    string atsakymas;
+    bool ar = true;
+
+    cout << "Ar norite patys ivesti duomenis?" << endl;
+    while (ar){
+        cin >> atsakymas;
+        if (atsakymas == "ne" || atsakymas == "Ne" || atsakymas == "NE") {
+            std::ifstream myfile("kursiokai.txt");
+            std::getline(myfile, line);
+            nuskaityto_studento_duomenys(myfile, line);
+            ar = false;
+        } else if (atsakymas == "taip" || atsakymas == "Taip" || atsakymas == "TAIP") {
+            vector<studentas> studentai = ivesti_studentai();
+            informacijos_isvedimas(studentai);
+            ar = false;
+        } else {
+            cout << "Klaida. Iveskite taip arba ne"<<endl;
+        }
+    }
+}
+
+/*
+#include <iostream>
 #include <iomanip>
 #include <fstream>
 #include <algorithm>
@@ -30,11 +69,10 @@ struct studentas {
     vector<int> nd_rezultatai;
     float mediana;
 };
-
-/*int random() {
+*int random() {
     int randomNumber = rand() % 10 + 1;
     return randomNumber;
-}*/
+}
 
 int patikrink_egzamino_pazymi(string skaicius_string) {
     while (true) {
@@ -155,7 +193,6 @@ int ivesti_nauja_studenta() {
         }
     }
 }
-
 int sugeneruotu_pazymiu_kiekis() {
     string pazymiu_kiekis;
     cout << "Kiek pazymiu sugeneruoti?";
@@ -306,13 +343,13 @@ void informacijos_isvedimas(const vector<studentas> &studentai) {
 
 void rusiavimas(vector<studentas> &studentai) {
     sort(studentai.begin(), studentai.end(), [](const studentas &s1, const studentas &s2) {
-        if (s1.Vardas.find("0123456789")) {
-            if (s1.Vardas.size() != s2.Vardas.size()) {
-                return (s1.Vardas.length() < s2.Vardas.length());
-            }
-        }
-        return (s1.Vardas < s2.Vardas);
-    }
+             if (s1.Vardas.find("0123456789")) {
+                 if (s1.Vardas.size() != s2.Vardas.size()) {
+                     return (s1.Vardas.length() < s2.Vardas.length());
+                 }
+             }
+             return (s1.Vardas < s2.Vardas);
+         }
     );
 }
 
@@ -360,4 +397,4 @@ int main() {
             cout << "Klaida. Iveskite taip arba ne"<<endl;
         }
     }
-}
+}*/
