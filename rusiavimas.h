@@ -6,6 +6,8 @@
 #define PROJEKTAS_SU_VEKTORIAIS_RUSIAVIMAS_H
 
 #include "studentas.h"
+#include <algorithm>
+
 
 void rusiavimas(vector<studentas> &studentai);
 

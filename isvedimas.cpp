@@ -1,13 +1,4 @@
-#include <iomanip>
-#include "studentas.h"
-#include "skaiciavimai.h"
-
-using std::cout;
-using std::endl;
-using std::setw;
-using std::setprecision;
-using std::fixed;
-using std::left;
+#include "isvedimas.h"
 
 void informacijos_isvedimas(const vector<studentas> &studentai) {
     cout.width(20);

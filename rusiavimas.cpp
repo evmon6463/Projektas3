@@ -1,5 +1,4 @@
-#include "studentas.h"
-#include <algorithm>
+#include "rusiavimas.h"
 
 void rusiavimas(vector<studentas> &studentai) {
     sort(studentai.begin(), studentai.end(), [](const studentas &s1, const studentas &s2) {

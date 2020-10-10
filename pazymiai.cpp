@@ -1,13 +1,4 @@
-#include <iostream>
-#include <string>
-#include <vector>
-
-using std::string;
-using std::cout;
-using std::endl;
-using std::cin;
-using std::vector;
-using std::invalid_argument;
+#include "pazymiai.h"
 
 int patikrink_egzamino_pazymi(string skaicius_string) {
     while (true) {

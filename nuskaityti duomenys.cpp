@@ -1,9 +1,4 @@
-#include <iostream>
-#include <string>
-#include <vector>
-
-using std::string;
-using std::vector;
+#include "nuskaityti_duomenys.h"
 
 void prideti_prie_vektoriaus(vector<string> &zodziai, const string &word);
 

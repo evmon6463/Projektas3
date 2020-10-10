@@ -1,10 +1,4 @@
-#include <iostream>
-#include <string>
-
-using std::string;
-using std::cout;
-using std::endl;
-using std::cin;
+#include "klausimai.h"
 
 string ar_generuoti() {
     string klausimas;

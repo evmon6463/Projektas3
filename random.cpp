@@ -1,15 +1,4 @@
-#include <iostream>
-#include <iomanip>
-#include <stdlib.h>
-#include <string>
-#include <vector>
-
-using std::string;
-using std::cout;
-using std::endl;
-using std::cin;
-using std::vector;
-using std::invalid_argument;
+#include "random.h"
 
 int random() {
     int randomNumber = rand() % 10 + 1;

@@ -1,20 +1,4 @@
-#include <fstream>
-#include <sstream>
-#include "random.h"
-#include "klausimai.h"
-#include "studentas.h"
-#include "skaiciavimai.h"
-#include "pazymiai.h"
-#include "studento_sukurimas.h"
-#include "rusiavimas.h"
-#include "isvedimas.h"
-#include "nuskaityti_duomenys.h"
-
-using std::string;
-using std::cout;
-using std::endl;
-using std::cin;
-using std::vector;
+#include "studentai.h"
 
 vector<studentas> ivesti_studentai() {
     vector<studentas> studentai;

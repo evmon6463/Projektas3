@@ -1,4 +1,4 @@
-#include "studentas.h"
+#include "studento_sukurimas.h"
 
 studentas sukurti_nuskaityta_studenta(vector<string> studento_irasas, int ilgis) {
     studentas studentas;

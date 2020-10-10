@@ -1,7 +1,4 @@
-#include <algorithm>
-#include "studentas.h"
-
-using std::sort;
+#include "skaiciavimai.h"
 
 float galutinisRezultatas(studentas st) {
     float galutinis_rezultatas = 0;
