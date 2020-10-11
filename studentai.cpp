@@ -39,6 +39,8 @@ vector<studentas> ivesti_studentai() {
 
 
 void nuskaityto_studento_duomenys(std::ifstream &myfile, string line) {
+    std::chrono::duration<double> diff;
+    auto start = std::chrono::high_resolution_clock::now();
     vector<studentas> studentai;
     vector<string> nuskaityta_eilute;
     if (myfile.is_open()) {
@@ -52,11 +54,15 @@ void nuskaityto_studento_duomenys(std::ifstream &myfile, string line) {
                 cout << "Klaidingai ivesti pazymiai";
                 exit(0);
             }
+            auto end = std::chrono::high_resolution_clock::now();
+            diff = end-start;
             studentai.push_back(sukurti_nuskaityta_studenta(nuskaityta_eilute, ilgis));
         }
-        rusiavimas(studentai);
-
+        string_rusiavimas(studentai);
         informacijos_isvedimas(studentai);
+
+        std::cout << "Failu nuskaitymas uztrunka "<< diff.count() <<endl;
+
     } else cout << "Unable to open file";
     myfile.close();
 }

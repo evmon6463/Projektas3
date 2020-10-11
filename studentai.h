@@ -16,6 +16,8 @@
 #include "rusiavimas.h"
 #include "isvedimas.h"
 #include "nuskaityti_duomenys.h"
+#pragma once
+#include <chrono>
 
 using std::string;
 using std::cout;

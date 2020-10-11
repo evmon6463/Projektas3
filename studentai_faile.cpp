@@ -1,26 +1,7 @@
-#include <iostream>
-#include <iomanip>
-#include <fstream>
-#include <string>
-#include <vector>
-#include "studentas.h"
-#include "random.h"
-#include "studento_sukurimas.h"
-#include "skaiciavimai.h"
-#include <time.h>
-#include <stdlib.h>
+#include "studentai_faile.h"
 
-using std::string;
-using std::cout;
-using std::endl;
-using std::cin;
-using std::vector;
-using std::setw;
-using std::setprecision;
-using std::fixed;
-using std::left;
-using std::to_string;
-using std::ofstream;
+void
+surusiuoti_failai(int kelintas_failas, ofstream &gudruciai, ofstream &vargseliai, const vector<studentas> &studentai);
 
 void grazina_studenta(ofstream &output, studentas st) {
     output.width(20);
@@ -30,46 +11,26 @@ void grazina_studenta(ofstream &output, studentas st) {
            << mediana(st) << endl;
 }
 
-void isvedimas(const vector<studentas> &studentai, ofstream& output,ofstream& vargseliai, ofstream& galvociai){
+void isvedimas(const vector<studentas> &studentai, ofstream& output){
     output << std::left << "Vardas" << std::setw(20) << "Pavarde" << std::setw(20) << "Galutinis vidurkis"
            << std::setw(20) << "Galutine mediana" << endl;
     output << "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -" << endl;
-    vargseliai << std::left << "Vardas" << std::setw(20) << "Pavarde" << std::setw(20) << "Galutinis vidurkis"
-               << std::setw(20) << "Galutine mediana" << endl;
-    vargseliai << "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -" << endl;
-    galvociai << std::left << "Vardas" << std::setw(20) << "Pavarde" << std::setw(20) << "Galutinis vidurkis"
-              << std::setw(20) << "Galutine mediana" << endl;
-    galvociai << "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -" << endl;
+
     for (auto st : studentai) {
         grazina_studenta(output, st);
-        if(st.galutinis_rezultatas<5){
-            grazina_studenta(vargseliai, st);
-        }
-        else{
-            grazina_studenta(galvociai, st);
-        }
     }
+
     output.close();
-    vargseliai.close();
-    galvociai.close();
 }
 
-void failu_uzpildymas(const vector<studentas> &studentai, ofstream& output,ofstream& vargseliai, ofstream& galvociai, int i) {
-    galvociai.width(20);
-    vargseliai.width(20);
+void failu_uzpildymas(const vector<studentas> &studentai, ofstream& output, int i, string pavadinimas) {
     output.width(20);
     string j = to_string(i);
-    output.open("rezultatas"+j+".txt");
-    vargseliai.open("vargseliai"+j+".txt");
-    galvociai.open("galvociai"+j+".txt");
-    isvedimas(studentai, output, vargseliai, galvociai);
-
+    output.open(pavadinimas+j+".txt");
+    isvedimas(studentai, output);
 }
 
-void generuojami_studentai_faile(int failo_dydis, int k) {
-    ofstream output;
-    ofstream vargseliai;
-    ofstream galvociai;
+vector<studentas> generuojami_studentai_faile(int failo_dydis, int kelintas_failas) {
     studentas studenta;
     std::vector<studentas> studentai;
     srand(time(NULL));
@@ -77,7 +38,7 @@ void generuojami_studentai_faile(int failo_dydis, int k) {
         string j = to_string(i);
         studenta.Vardas = "Vardas" + j;
         studenta.Pavarde = "Pavarde" + j;
-        for (int k = 0; k < 10; k++) {
+        for (auto k = 0; k < 10; k++) {
             studenta.nd_rezultatai.push_back(random());
         }
         studenta.egzamino_rezultatas = random();
@@ -86,5 +47,36 @@ void generuojami_studentai_faile(int failo_dydis, int k) {
         studentai = sukurti_ivesta_studenta(studentai, studenta);
         studenta.nd_rezultatai.clear();
     }
-    failu_uzpildymas(studentai, output, vargseliai, galvociai, k);
+    return studentai;
 }
+
+void issurusiuoti_failai(int kelintas_failas, const vector<studentas> &studentai) {
+    ofstream gudruciai;
+    ofstream vargseliai;
+    vector<studentas> vargsai;
+    vector<studentas> gudruoliai;
+    auto start = std::chrono::high_resolution_clock::now();
+    for(auto st:studentai){
+        if(st.galutinis_rezultatas>=5){
+            gudruoliai.push_back(st);
+        }
+        else{
+            vargsai.push_back(st);
+        }
+    }
+    auto end = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> diff = end-start;
+    std::cout << "Failu isrusiavimas uztrunka"<< diff.count()*1000000 <<endl;
+    auto start_1 = std::chrono::high_resolution_clock::now();
+    failu_uzpildymas(gudruoliai, gudruciai, kelintas_failas, "gudruciai");
+    auto end_1 = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> diff_1 = end_1-start_1;
+    std::cout << "Gudruoliu failo isvedimas "<< diff_1.count()*1000000 <<endl;
+    auto start_2 = std::chrono::high_resolution_clock::now();
+    failu_uzpildymas(vargsai, vargseliai, kelintas_failas, "vargseliai");
+    auto end_2 = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> diff_2 = end_2-start_2;
+    std::cout << "Vargseliu failo isvedimas "<< diff_2.count()*1000000 <<endl;
+
+}
+

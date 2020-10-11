@@ -1,10 +1,11 @@
 #include <iostream>
-#include <fstream>
-
 #include "studentas.h"
 #include "isvedimas.h"
 #include "studentai.h"
 #include "studentai_faile.h"
+#pragma once
+#include <chrono>
+
 
 using std::cout;
 using std::endl;
@@ -14,8 +15,8 @@ int main() {
     char atsakymas;
     string line;
     cout << "Iveskite kaip norite sukurti duomenis" << endl
-         << "Jeigu norite ivesti patys I, nuskaityti is failo N,"
-            " sugeneruotu kompiuteris G" << endl;
+         << "Jeigu norite ivesti patys I, Sukurti faila S,"
+            " Nuskaityti is failo N" << endl;
     bool ar = true;
     while(ar) {
         cin >> atsakymas;
@@ -26,17 +27,25 @@ int main() {
                 ar=false;
                 break;
             }
-            case 'N': {
-                int failo_dydis;
-                for (int i = 1; i < 6; i++){
-                    cout << "Kokio dydzio faila norite sugeneruoti?" << endl;
-                cin >> failo_dydis;
-                generuojami_studentai_faile(failo_dydis, i);
-            }
+            case 'S': {
+                int failo_dydis=10;
+                vector<studentas> studentai;
+                ofstream output;
+                for (int kelintas_failas = 1; kelintas_failas < 6; kelintas_failas++){
+                    studentai = generuojami_studentai_faile(failo_dydis, kelintas_failas);
+                    rusiavimas_pagal_galutini_pazymi(studentai);
+                    auto start = std::chrono::high_resolution_clock::now();
+                    failu_uzpildymas(studentai,output, kelintas_failas,"rezultatai");
+                    auto end = std::chrono::high_resolution_clock::now();
+                    std::chrono::duration<double> diff = end-start;
+                    std::cout << "Failu kurimas uztrunka "<< diff.count()*1000000 <<endl;
+                    issurusiuoti_failai(kelintas_failas, studentai);
+                    failo_dydis=failo_dydis*10;
+                }
                 ar = false;
                 break;
             }
-            case 'G': {
+            case 'N': {
                 std::ifstream myfile("kursiokai.txt");
                 std::getline(myfile, line);
                 nuskaityto_studento_duomenys(myfile, line);
