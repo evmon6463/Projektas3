@@ -66,3 +66,21 @@ void nuskaityto_studento_duomenys(std::ifstream &myfile, string line) {
     } else cout << "Unable to open file";
     myfile.close();
 }
+
+void studentai_is_sukurto_failo(std::ifstream &myfile, string line) {
+    vector<studentas> studentai;
+    vector<string> nuskaityta_eilute;
+    if (myfile.is_open()) {
+        std::stringstream lineStream(line);
+        string eilute;
+        std::getline(lineStream, eilute);
+        while (getline(myfile, line)) {
+            std::stringstream lineStream(line);
+            std::getline(lineStream, eilute);
+            nuskaityta_eilute = isskaidyk_String(eilute);
+            int ilgis = nuskaityta_eilute.size();
+            studentai.push_back(sukurti_studenta(nuskaityta_eilute, ilgis));
+        }
+    } else {cout<< "Unable to open file";}
+    myfile.close();
+}

@@ -55,7 +55,19 @@ void issurusiuoti_failai(int kelintas_failas, const vector<studentas> &studentai
     ofstream vargseliai;
     vector<studentas> vargsai;
     vector<studentas> gudruoliai;
+
+
+    string line;
+    std::ifstream myfile("rezultatas" + to_string(kelintas_failas) + ".txt");
+    std::getline(myfile, line);
+    auto start1 = std::chrono::high_resolution_clock::now();
+    studentai_is_sukurto_failo(myfile, line);
+    auto end1 = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> diff1 = end1 - start1;
+    std::cout << "Failo nuskaitymas " << diff1.count() * 1000000 << endl;
     auto start = std::chrono::high_resolution_clock::now();
+
+
     for(auto st:studentai){
         if(st.galutinis_rezultatas>=5){
             gudruoliai.push_back(st);
@@ -66,7 +78,7 @@ void issurusiuoti_failai(int kelintas_failas, const vector<studentas> &studentai
     }
     auto end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> diff = end-start;
-    std::cout << "Failu isrusiavimas uztrunka"<< diff.count()*1000000 <<endl;
+    std::cout << "Failu isrusiavimas uztrunka "<< diff.count()*1000000 <<endl;
     auto start_1 = std::chrono::high_resolution_clock::now();
     failu_uzpildymas(gudruoliai, gudruciai, kelintas_failas, "gudruciai");
     auto end_1 = std::chrono::high_resolution_clock::now();
@@ -77,6 +89,7 @@ void issurusiuoti_failai(int kelintas_failas, const vector<studentas> &studentai
     auto end_2 = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> diff_2 = end_2-start_2;
     std::cout << "Vargseliu failo isvedimas "<< diff_2.count()*1000000 <<endl;
+    std::cout<<endl;
 
 }
 

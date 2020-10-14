@@ -39,8 +39,10 @@ int main() {
                     auto end = std::chrono::high_resolution_clock::now();
                     std::chrono::duration<double> diff = end-start;
                     std::cout << "Failu kurimas uztrunka "<< diff.count()*1000000 <<endl;
+
                     issurusiuoti_failai(kelintas_failas, studentai);
-                    failo_dydis=failo_dydis*10;
+
+                    failo_dydis=failo_dydis*5;
                 }
                 ar = false;
                 break;
