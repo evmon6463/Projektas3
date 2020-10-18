@@ -3,7 +3,6 @@
 #include "isvedimas.h"
 #include "studentai.h"
 #include "studentai_faile.h"
-#include "random.h"
 #include <chrono>
 
 
