@@ -1,6 +1,6 @@
 #include "nuskaityti_duomenys.h"
 
-void prideti_prie_vektoriaus(vector<string> &zodziai, const string &word);
+//void prideti_prie_vektoriaus(vector<string> &zodziai, const string &word);
 
 vector<string> isskaidyk_String(const string &str) {
     vector<string> zodziai;

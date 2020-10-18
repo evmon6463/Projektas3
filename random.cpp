@@ -7,17 +7,12 @@ int random() {
 
 int sugeneruotu_pazymiu_kiekis() {
     string pazymiu_kiekis;
-    cout << "Kiek pazymiu sugeneruoti?";
+    cout << "Kiek pazymiu sugeneruoti?"<<endl;
     while (true) {
         cin >> pazymiu_kiekis;
         try {
-            if (!pazymiu_kiekis.find_first_not_of(" 0123456789")) {
-                cout << "Klaida. Ivedete ne skaicius" << endl;
-                continue;
-            } else {
                 int skaicius = stoi(pazymiu_kiekis);
                 return skaicius;
-            }
         } catch (invalid_argument &e) {
             cout << "Klaida. Ivedete ne skaicius. Pabandykite dar karta!" << endl;
         }

@@ -3,9 +3,10 @@
 vector<studentas> ivesti_studentai() {
     vector<studentas> studentai;
     studentai.reserve(1000000);
+    studentai.clear();
     studentas student;
     string skaicius_string;
-    while (ivesti_nauja_studenta() == 1) {
+    while (ar_ivesti_nauja_studenta() == 1) {
         cout << "Iveskite studento varda, pavarde: " << endl;
         cin >> student.Vardas >> student.Pavarde;
         while (true) {
@@ -38,11 +39,12 @@ vector<studentas> ivesti_studentai() {
 
 
 
-void nuskaityto_studento_duomenys(std::ifstream &myfile, string line) {
-    std::chrono::duration<double> diff;
-    auto start = std::chrono::high_resolution_clock::now();
+void nuskaityti_studentai(std::ifstream &myfile, string line) {
     vector<studentas> studentai;
+    studentai.reserve(10000010);
     vector<string> nuskaityta_eilute;
+    studentai.clear();
+    nuskaityta_eilute.clear();
     if (myfile.is_open()) {
         while (getline(myfile, line)) {
             std::stringstream lineStream(line);
@@ -54,33 +56,30 @@ void nuskaityto_studento_duomenys(std::ifstream &myfile, string line) {
                 cout << "Klaidingai ivesti pazymiai";
                 exit(0);
             }
-            auto end = std::chrono::high_resolution_clock::now();
-            diff = end-start;
             studentai.push_back(sukurti_nuskaityta_studenta(nuskaityta_eilute, ilgis));
         }
         string_rusiavimas(studentai);
         informacijos_isvedimas(studentai);
-
-        std::cout << "Failu nuskaitymas uztrunka "<< diff.count() <<endl;
-
     } else cout << "Unable to open file";
     myfile.close();
 }
 
 void studentai_is_sukurto_failo(std::ifstream &myfile, string line) {
     vector<studentas> studentai;
+    studentai.reserve(10000010);
+    studentai.clear();
     vector<string> nuskaityta_eilute;
+    nuskaityta_eilute.reserve(10000000);
+    nuskaityta_eilute.clear();
     if (myfile.is_open()) {
         std::stringstream lineStream(line);
         string eilute;
-        std::getline(lineStream, eilute);
         while (getline(myfile, line)) {
             std::stringstream lineStream(line);
             std::getline(lineStream, eilute);
             nuskaityta_eilute = isskaidyk_String(eilute);
-            int ilgis = nuskaityta_eilute.size();
-            studentai.push_back(sukurti_studenta(nuskaityta_eilute, ilgis));
+            studentai.push_back(sukurti_studenta_is_failo(nuskaityta_eilute));
         }
-    } else {cout<< "Unable to open file";}
+    } else {std::cout<< "Unable to open file";}
     myfile.close();
 }

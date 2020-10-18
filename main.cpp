@@ -3,7 +3,7 @@
 #include "isvedimas.h"
 #include "studentai.h"
 #include "studentai_faile.h"
-#pragma once
+#include "random.h"
 #include <chrono>
 
 
@@ -28,21 +28,25 @@ int main() {
                 break;
             }
             case 'S': {
-                int failo_dydis=10;
+                int failo_dydis=1000;
+                int pazymiu_kiekis;
                 vector<studentas> studentai;
+                studentai.reserve(10000010);
                 ofstream output;
+                output.clear();
+                pazymiu_kiekis = sugeneruotu_pazymiu_kiekis();
                 for (int kelintas_failas = 1; kelintas_failas < 6; kelintas_failas++){
-                    studentai = generuojami_studentai_faile(failo_dydis, kelintas_failas);
-                    rusiavimas_pagal_galutini_pazymi(studentai);
                     auto start = std::chrono::high_resolution_clock::now();
+                    studentai = generuojami_studentai_faile(failo_dydis, pazymiu_kiekis);
+                    rusiavimas_pagal_galutini_pazymi(studentai);
                     failu_uzpildymas(studentai,output, kelintas_failas,"rezultatai");
                     auto end = std::chrono::high_resolution_clock::now();
                     std::chrono::duration<double> diff = end-start;
-                    std::cout << "Failu kurimas uztrunka "<< diff.count()*1000000 <<endl;
+                    std::cout <<failo_dydis<< " Failu kurimas uztrunka "<< diff.count() <<endl;
 
                     issurusiuoti_failai(kelintas_failas, studentai);
 
-                    failo_dydis=failo_dydis*5;
+                    failo_dydis=failo_dydis*10;
                 }
                 ar = false;
                 break;
@@ -50,7 +54,7 @@ int main() {
             case 'N': {
                 std::ifstream myfile("kursiokai.txt");
                 std::getline(myfile, line);
-                nuskaityto_studento_duomenys(myfile, line);
+                nuskaityti_studentai(myfile, line);
                 ar=false;
                 break;
             }

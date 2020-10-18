@@ -14,6 +14,6 @@ using std::endl;
 using std::cin;
 
 string ar_generuoti();
-int ivesti_nauja_studenta();
+int ar_ivesti_nauja_studenta();
 
 #endif //PROJEKTAS_SU_VEKTORIAIS_KLAUSIMAI_H

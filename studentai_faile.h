@@ -12,7 +12,6 @@
 #include "skaiciavimai.h"
 #include "rusiavimas.h"
 #include "studentai.h"
-#pragma once
 #include <chrono>
 
 using std::string;
@@ -28,7 +27,7 @@ using std::to_string;
 using std::ofstream;
 
 
-vector<studentas> generuojami_studentai_faile(int failo_dydis, int kelintas_failas);
+vector<studentas> generuojami_studentai_faile(int failo_dydis, int pazymiu_kiekis);
 void failu_uzpildymas(const vector<studentas> &studentai, ofstream& output, int i, string pavadinimas);
 void issurusiuoti_failai(int kelintas_failas, const vector<studentas> &studentai);
 

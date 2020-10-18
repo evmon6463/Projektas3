@@ -15,6 +15,7 @@ void string_rusiavimas(vector<studentas> &studentai) {
 void rusiavimas_pagal_galutini_pazymi(vector<studentas> &studentai)
 {
     vector<studentas> surusiuoti_studentai;
+    surusiuoti_studentai.reserve(10000010);
     sort(studentai.begin(), studentai.end(), [](const studentas &left, const studentas &right)
     {return (left.galutinis_rezultatas < right.galutinis_rezultatas);});
 }

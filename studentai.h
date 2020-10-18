@@ -26,7 +26,7 @@ using std::cin;
 using std::vector;
 
 vector<studentas> ivesti_studentai();
-void nuskaityto_studento_duomenys(std::ifstream &myfile, string line);
+void nuskaityti_studentai(std::ifstream &myfile, string line);
 void studentai_is_sukurto_failo(std::ifstream &myfile, string line);
 
 #endif //PROJEKTAS_SU_VEKTORIAIS_STUDENTAI_H

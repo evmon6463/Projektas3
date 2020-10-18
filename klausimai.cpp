@@ -8,7 +8,7 @@ string ar_generuoti() {
     return klausimas;
 }
 
-int ivesti_nauja_studenta() {
+int ar_ivesti_nauja_studenta() {
     string atsakymas;
     cout << "Ar ivesti nauja studenta?Iveskite taip arba ne" << endl;
     while (true) {
