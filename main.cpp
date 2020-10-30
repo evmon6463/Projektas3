@@ -4,6 +4,7 @@
 #include "studentai.h"
 #include "studentai_faile.h"
 #include <chrono>
+#include <list>
 
 
 using std::cout;
@@ -30,6 +31,7 @@ int main() {
                 int failo_dydis=1000;
                 int pazymiu_kiekis;
                 vector<studentas> studentai;
+
                 studentai.reserve(10000010);
                 ofstream output;
                 output.clear();
@@ -42,8 +44,10 @@ int main() {
                     auto end = std::chrono::high_resolution_clock::now();
                     std::chrono::duration<double> diff = end-start;
                     std::cout <<failo_dydis<< " Failu kurimas uztrunka "<< diff.count() <<endl;
+                    output.close();
 
                     issurusiuoti_failai(kelintas_failas, studentai);
+                    issurusiuoti_failai_v(kelintas_failas, studentai);
 
                     failo_dydis=failo_dydis*10;
                 }

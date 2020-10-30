@@ -17,11 +17,15 @@ float mediana(studentas st) {
     float mediana = 0;
     int size = st.nd_rezultatai.size();
     sort(st.nd_rezultatai.begin(), st.nd_rezultatai.end());
+    int s1 = (size/2)-1;
+    int s2 = (size/2);
     if (size % 2 == 0) {
-        mediana = ((st.nd_rezultatai[size / 2 + 1] + st.nd_rezultatai[size / 2]) / 2.0);
-        return mediana;
+        float m1 = st.nd_rezultatai[s1];
+        float m2 = st.nd_rezultatai[s2];
+        mediana = ( m1+ m2) / 2;
     } else {
-        mediana = st.nd_rezultatai[size / 2];
-        return mediana;
+        mediana = st.nd_rezultatai[s2];
     }
+    return mediana;
+
 }

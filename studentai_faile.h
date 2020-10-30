@@ -30,5 +30,11 @@ using std::ofstream;
 vector<studentas> generuojami_studentai_faile(int failo_dydis, int pazymiu_kiekis);
 void failu_uzpildymas(const vector<studentas> &studentai, ofstream& output, int i, string pavadinimas);
 void issurusiuoti_failai(int kelintas_failas, const vector<studentas> &studentai);
+void isvedimas_list(const std::list<studentas> &studentai, ofstream& output);
+void failu_uzpildymas_list(const std::list<studentas> &studentai, ofstream& output, int i, string pavadinimas);
+void grazina_studenta_list(ofstream &output, studentas st);
+void issurusiuoti_failai_v(int kelintas_failas, const vector<studentas> &studentai);
+
+
 
 #endif //PROJEKTAS_SU_VEKTORIAIS_STUDENTAI_FAILE_H

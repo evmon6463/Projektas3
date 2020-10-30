@@ -1,3 +1,4 @@
+
 #include "studentai.h"
 
 vector<studentas> ivesti_studentai() {
@@ -80,6 +81,26 @@ void studentai_is_sukurto_failo(std::ifstream &myfile, string line) {
             nuskaityta_eilute = isskaidyk_String(eilute);
             studentai.push_back(sukurti_studenta_is_failo(nuskaityta_eilute));
         }
+    } else {std::cout<< "Unable to open file";}
+    myfile.close();
+}
+
+std::list<struct studentas> studentai_is_sukurto_failo_list(std::ifstream &myfile, string line) {
+    std::list<studentas> studentai;
+    vector<string> nuskaityta_eilute;
+    nuskaityta_eilute.reserve(10000000);
+    nuskaityta_eilute.clear();
+
+    if (myfile.is_open()) {
+        std::stringstream lineStream(line);
+        string eilute;
+        while (getline(myfile, line)) {
+            std::stringstream lineStream(line);
+            std::getline(lineStream, eilute);
+            nuskaityta_eilute = isskaidyk_String(eilute);
+            studentai.push_back(sukurti_studenta_is_failo(nuskaityta_eilute));
+        }
+        return studentai;
     } else {std::cout<< "Unable to open file";}
     myfile.close();
 }
