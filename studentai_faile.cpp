@@ -75,12 +75,11 @@ void issurusiuoti_failai(int kelintas_failas, const vector<studentas> &studentai
     ofstream vargseliai;
     std::list<studentas> vargsai;
     std::list<studentas> gudruoliai;
-    std::list<studentas> studentai_list = {};
+    std::list<studentas> studentai_list;
 
     string line;
     std::ifstream myfile("rezultatai" + to_string(kelintas_failas) + ".txt");
     auto start1 = std::chrono::high_resolution_clock::now();
-    std::getline(myfile, line);
     std::getline(myfile, line);
     std::getline(myfile, line);
     studentai_list = studentai_is_sukurto_failo_list(myfile, line);
@@ -122,8 +121,8 @@ void issurusiuoti_failai(int kelintas_failas, const vector<studentas> &studentai
 }
 
 void issurusiuoti_failai_v(int kelintas_failas, const vector<studentas> &studentai) {
-    ofstream gudruciai;
-    ofstream vargseliai;
+    ofstream gudruciai1;
+    ofstream vargseliai1;
     vector<studentas> vargsai;
     vargsai.reserve(10000010);
     vargsai.clear();
@@ -155,12 +154,12 @@ void issurusiuoti_failai_v(int kelintas_failas, const vector<studentas> &student
     std::chrono::duration<double> diff = end-start;
     std::cout << "Failu isrusiavimas uztrunka "<< diff.count() <<endl;
     auto start_1 = std::chrono::high_resolution_clock::now();
-    failu_uzpildymas(gudruoliai, gudruciai, kelintas_failas, "gudruciai_v");
+    failu_uzpildymas(gudruoliai, gudruciai1, kelintas_failas, "gudruciai_v");
     auto end_1 = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> diff_1 = end_1-start_1;
     std::cout << "Gudruoliu failo isvedimas "<< diff_1.count() <<endl;
     auto start_2 = std::chrono::high_resolution_clock::now();
-    failu_uzpildymas(vargsai, vargseliai, kelintas_failas, "vargseliai_v");
+    failu_uzpildymas(vargsai, vargseliai1, kelintas_failas, "vargseliai_v");
     auto end_2 = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> diff_2 = end_2-start_2;
     std::cout << "Vargseliu failo isvedimas "<< diff_2.count() <<endl;

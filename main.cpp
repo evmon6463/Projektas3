@@ -43,12 +43,13 @@ int main() {
                     failu_uzpildymas(studentai,output, kelintas_failas,"rezultatai");
                     auto end = std::chrono::high_resolution_clock::now();
                     std::chrono::duration<double> diff = end-start;
-                    std::cout <<failo_dydis<< " Failu kurimas uztrunka "<< diff.count() <<endl;
+                    std::cout <<failo_dydis<<" failas su vektoriais"<<endl<<endl;
+                    std::cout << "Failu kurimas uztrunka "<< diff.count() <<endl;
                     output.close();
 
-                    issurusiuoti_failai(kelintas_failas, studentai);
                     issurusiuoti_failai_v(kelintas_failas, studentai);
-
+                    cout<<failo_dydis<<" failas su listais"<<endl<<endl;
+                    issurusiuoti_failai(kelintas_failas, studentai);
                     failo_dydis=failo_dydis*10;
                 }
                 ar = false;
