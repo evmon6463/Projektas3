@@ -36,21 +36,21 @@ int main() {
                 ofstream output;
                 output.clear();
                 pazymiu_kiekis = sugeneruotu_pazymiu_kiekis();
-                for (int kelintas_failas = 1; kelintas_failas < 6; kelintas_failas++){
+                for (int kelintas_failas = 1; kelintas_failas < 5; kelintas_failas++){
                     studentai = generuojami_studentai_faile(failo_dydis, pazymiu_kiekis);
                     rusiavimas_pagal_galutini_pazymi(studentai);
                     failu_uzpildymas(studentai,output, kelintas_failas,"rezultatai");
-                    std::cout <<failo_dydis<<" failas su vektoriais 1 strategija"<<endl<<endl;
+                    std::cout <<failo_dydis<<" failas su vektoriais 1 strategija"<<endl;
                     output.close();
 
                     issurusiuoti_failai_v(kelintas_failas, studentai);
-                    cout<<failo_dydis<<" failas su listais 1 strategija"<<endl<<endl;
+                    cout<<failo_dydis<<" failas su listais 1 strategija"<<endl;
                     issurusiuoti_failai(kelintas_failas, studentai);
 
-                    std::cout <<failo_dydis<<" failas su vektoriais 2 strategija"<<endl<<endl;
+                    std::cout <<failo_dydis<<" failas su vektoriais 2 strategija"<<endl;
                     issurusiuoti_failai_vektorius(kelintas_failas, studentai);
 
-                    std::cout <<failo_dydis<<" failas su listais 2 strategija"<<endl<<endl;
+                    std::cout <<failo_dydis<<" failas su listais 2 strategija"<<endl;
                     issurusiuoti_failai_listai(kelintas_failas, studentai);
                     failo_dydis=failo_dydis*10;
                 }

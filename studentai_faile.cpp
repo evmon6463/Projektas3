@@ -1,5 +1,7 @@
 #include "studentai_faile.h"
 
+
+
 void grazina_studenta_list(ofstream &output, studentas st) {
     output.width(20);
     output << st.Vardas << std::setw(20) << st.Pavarde << std::setw(20) << std::setprecision(2) << std::fixed
@@ -86,7 +88,7 @@ void issurusiuoti_failai(int kelintas_failas, const vector<studentas> &studentai
     std::getline(myfile, line);
     std::getline(myfile, line);
     studentai_list = studentai_is_sukurto_failo_list(myfile, line);
-
+    auto start_1 = std::chrono::high_resolution_clock::now();
     for(auto st:studentai_list){
         if(st.galutinis_rezultatas>=5){
             gudruoliai.push_back(st);
@@ -95,25 +97,18 @@ void issurusiuoti_failai(int kelintas_failas, const vector<studentas> &studentai
             vargsai.push_back(st);
         }
     }
-
+    auto end_1 = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> diff_1 = end_1-start_1;
+    std::cout << "Failo dalinimas "<< diff_1.count() <<endl<<endl;
 #ifdef LIST
     std::list<studentas>::iterator it = std::find_if (studentai_list.begin(), studentai_list.end(),5.0);
     vargsai.splice(vargsai.begin(), studentai_list, studentai_list.begin(), it);
     gudruoliai.splice(gudruoliai.begin(), studentai_list, it, studentai_list.end());
 #endif //LIST
 
-    auto start_1 = std::chrono::high_resolution_clock::now();
-    failu_uzpildymas_list(gudruoliai, gudruciai, kelintas_failas, "gudruciai_l");
-    auto end_1 = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<double> diff_1 = end_1-start_1;
-    std::cout << "Gudruoliu listo failo isvedimas "<< diff_1.count() <<endl;
-    auto start_2 = std::chrono::high_resolution_clock::now();
-    failu_uzpildymas_list(vargsai, vargseliai, kelintas_failas, "vargseliai_l");
-    auto end_2 = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<double> diff_2 = end_2-start_2;
-    std::cout << "Vargseliu listo failo isvedimas "<< diff_2.count() <<endl;
-    std::cout<<endl;
 
+    failu_uzpildymas_list(gudruoliai, gudruciai, kelintas_failas, "gudruciai_l");
+    failu_uzpildymas_list(vargsai, vargseliai, kelintas_failas, "vargseliai_l");
 }
 
 void issurusiuoti_failai_v(int kelintas_failas, const vector<studentas> &studentai) {
@@ -132,7 +127,7 @@ void issurusiuoti_failai_v(int kelintas_failas, const vector<studentas> &student
     std::getline(myfile, line);
     std::getline(myfile, line);
     studentai_is_sukurto_failo(myfile, line);
-
+    auto start_1 = std::chrono::high_resolution_clock::now();
     for(auto st:studentai){
         if(st.galutinis_rezultatas>=5){
             gudruoliai.push_back(st);
@@ -141,17 +136,11 @@ void issurusiuoti_failai_v(int kelintas_failas, const vector<studentas> &student
             vargsai.push_back(st);
         }
     }
-    auto start_1 = std::chrono::high_resolution_clock::now();
-    failu_uzpildymas(gudruoliai, gudruciai1, kelintas_failas, "gudruciai_v");
     auto end_1 = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> diff_1 = end_1-start_1;
-    std::cout << "Gudruoliu failo isvedimas "<< diff_1.count() <<endl;
-    auto start_2 = std::chrono::high_resolution_clock::now();
+    std::cout << "Failo dalinimas "<< diff_1.count() <<endl<<endl;
+    failu_uzpildymas(gudruoliai, gudruciai1, kelintas_failas, "gudruciai_v");
     failu_uzpildymas(vargsai, vargseliai1, kelintas_failas, "vargseliai_v");
-    auto end_2 = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<double> diff_2 = end_2-start_2;
-    std::cout << "Vargseliu failo isvedimas "<< diff_2.count() <<endl;
-    std::cout<<endl;
 }
 
 void issurusiuoti_failai_vektorius(int kelintas_failas, vector<studentas> &studentai) {
@@ -168,29 +157,28 @@ void issurusiuoti_failai_vektorius(int kelintas_failas, vector<studentas> &stude
     std::getline(myfile, line);
     studentai_is_sukurto_failo(myfile, line);
     int kelintas = 0;
-
+    auto start_1 = std::chrono::high_resolution_clock::now();
     for(auto st:studentai){
         if(st.galutinis_rezultatas<5){
             vargsai.push_back(st);
             kelintas++;
         }
     }
+
     vector<studentas>::iterator it;
-    for (int i=0; i<kelintas; i++){
     it = studentai.begin();
-    studentai.erase(it);
-    }
-    auto start_1 = std::chrono::high_resolution_clock::now();
-    failu_uzpildymas(studentai, gudruciai1, kelintas_failas, "gudruciai_vektorius");
+    studentai.erase(it, it+kelintas);
+
     auto end_1 = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> diff_1 = end_1-start_1;
-    std::cout << "Gudruoliu failo isvedimas "<< diff_1.count() <<endl;
-    auto start_2 = std::chrono::high_resolution_clock::now();
+    std::cout << "Failo dalinimas "<< diff_1.count() <<endl<<endl;
+
+
+
+
+
+    failu_uzpildymas(studentai, gudruciai1, kelintas_failas, "gudruciai_vektorius");
     failu_uzpildymas(vargsai, vargseliai1, kelintas_failas, "vargseliai_vektorius");
-    auto end_2 = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<double> diff_2 = end_2-start_2;
-    std::cout << "Vargseliu failo isvedimas "<< diff_2.count() <<endl;
-    std::cout<<endl;
 }
 
 void issurusiuoti_failai_listai(int kelintas_failas, vector<studentas> &studentai) {
@@ -205,6 +193,7 @@ void issurusiuoti_failai_listai(int kelintas_failas, vector<studentas> &studenta
     std::getline(myfile, line);
     studentai_list = studentai_is_sukurto_failo_list(myfile, line);
     int kelintas = 0;
+    auto start_1 = std::chrono::high_resolution_clock::now();
     for(auto st:studentai_list){
         if(st.galutinis_rezultatas<5){
             vargsai.push_back(st);
@@ -217,22 +206,18 @@ void issurusiuoti_failai_listai(int kelintas_failas, vector<studentas> &studenta
         it1 = studentai_list.begin();
         studentai_list.erase(it1);
     }
+    auto end_1 = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> diff_1 = end_1-start_1;
+    std::cout << "Failo dalinimas "<< diff_1.count() <<endl<<endl;
 #ifdef LIST
     std::list<studentas>::iterator it = std::find_if (studentai_list.begin(), studentai_list.end(),5.0);
     vargsai.splice(vargsai.begin(), studentai_list, studentai_list.begin(), it);
     gudruoliai.splice(gudruoliai.begin(), studentai_list, it, studentai_list.end());
 #endif //LIST
 
-    auto start_1 = std::chrono::high_resolution_clock::now();
+
     failu_uzpildymas_list(studentai_list, gudruciai, kelintas_failas, "gudruciai_list");
-    auto end_1 = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<double> diff_1 = end_1-start_1;
-    std::cout << "Gudruoliu listo failo isvedimas "<< diff_1.count() <<endl;
-    auto start_2 = std::chrono::high_resolution_clock::now();
     failu_uzpildymas_list(vargsai, vargseliai, kelintas_failas, "vargseliai_list");
-    auto end_2 = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<double> diff_2 = end_2-start_2;
-    std::cout << "Vargseliu listo failo isvedimas "<< diff_2.count() <<endl;
-    std::cout<<endl;
 
 }
+
