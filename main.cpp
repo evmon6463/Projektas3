@@ -37,19 +37,21 @@ int main() {
                 output.clear();
                 pazymiu_kiekis = sugeneruotu_pazymiu_kiekis();
                 for (int kelintas_failas = 1; kelintas_failas < 6; kelintas_failas++){
-                    auto start = std::chrono::high_resolution_clock::now();
                     studentai = generuojami_studentai_faile(failo_dydis, pazymiu_kiekis);
                     rusiavimas_pagal_galutini_pazymi(studentai);
                     failu_uzpildymas(studentai,output, kelintas_failas,"rezultatai");
-                    auto end = std::chrono::high_resolution_clock::now();
-                    std::chrono::duration<double> diff = end-start;
-                    std::cout <<failo_dydis<<" failas su vektoriais"<<endl<<endl;
-                    std::cout << "Failu kurimas uztrunka "<< diff.count() <<endl;
+                    std::cout <<failo_dydis<<" failas su vektoriais 1 strategija"<<endl<<endl;
                     output.close();
 
                     issurusiuoti_failai_v(kelintas_failas, studentai);
-                    cout<<failo_dydis<<" failas su listais"<<endl<<endl;
+                    cout<<failo_dydis<<" failas su listais 1 strategija"<<endl<<endl;
                     issurusiuoti_failai(kelintas_failas, studentai);
+
+                    std::cout <<failo_dydis<<" failas su vektoriais 2 strategija"<<endl<<endl;
+                    issurusiuoti_failai_vektorius(kelintas_failas, studentai);
+
+                    std::cout <<failo_dydis<<" failas su listais 2 strategija"<<endl<<endl;
+                    issurusiuoti_failai_listai(kelintas_failas, studentai);
                     failo_dydis=failo_dydis*10;
                 }
                 ar = false;

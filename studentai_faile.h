@@ -34,6 +34,8 @@ void isvedimas_list(const std::list<studentas> &studentai, ofstream& output);
 void failu_uzpildymas_list(const std::list<studentas> &studentai, ofstream& output, int i, string pavadinimas);
 void grazina_studenta_list(ofstream &output, studentas st);
 void issurusiuoti_failai_v(int kelintas_failas, const vector<studentas> &studentai);
+void issurusiuoti_failai_vektorius(int kelintas_failas, vector<studentas> &studentai);
+void issurusiuoti_failai_listai(int kelintas_failas, vector<studentas> &studentai);
 
 
 

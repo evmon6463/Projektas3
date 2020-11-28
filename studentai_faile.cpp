@@ -1,12 +1,5 @@
 #include "studentai_faile.h"
 
-void grazina_studenta(ofstream &output, studentas st) {
-    output.width(20);
-    output << st.Vardas << std::setw(20) << st.Pavarde << std::setw(20) << std::setprecision(2) << std::fixed
-           << std::left << std::setw(20) << galutinisRezultatas(st) << std::setw(20) << std::setprecision(2)
-           << std::fixed
-           << mediana(st) << endl;
-}
 void grazina_studenta_list(ofstream &output, studentas st) {
     output.width(20);
     output << st.Vardas << std::setw(20) << st.Pavarde << std::setw(20) << std::setprecision(2) << std::fixed
@@ -16,11 +9,22 @@ void grazina_studenta_list(ofstream &output, studentas st) {
 }
 
 void isvedimas(const vector<studentas> &studentai, ofstream& output){
+
     output << std::left << "Vardas" << std::setw(20) << "Pavarde" << std::setw(20) << "Galutinis vidurkis"
            << std::setw(20) << "Galutine mediana" << endl;
     output << "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -" << endl;
     for (auto st : studentai) {
-        grazina_studenta(output, st);
+        output.width(20);
+        output << st.Vardas << std::setw(20) << st.Pavarde << std::setw(20) << std::setprecision(2) << std::fixed
+               << std::left << std::setw(20) << galutinisRezultatas(st) << std::setw(20) << std::setprecision(2)
+               << std::fixed
+               << mediana(st);
+        if (st.Pavarde == studentai.back().Pavarde && st.Vardas == studentai.back().Vardas &&
+            st.galutinis_rezultatas == studentai.back().galutinis_rezultatas) {
+            break;
+        } else {
+            output <<endl;
+        }
     }
     output.close();
 }
@@ -79,14 +83,9 @@ void issurusiuoti_failai(int kelintas_failas, const vector<studentas> &studentai
 
     string line;
     std::ifstream myfile("rezultatai" + to_string(kelintas_failas) + ".txt");
-    auto start1 = std::chrono::high_resolution_clock::now();
     std::getline(myfile, line);
     std::getline(myfile, line);
     studentai_list = studentai_is_sukurto_failo_list(myfile, line);
-    auto end1 = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<double> diff1 = end1 - start1;
-    std::cout << "Failo nuskaitymas " << diff1.count()<< endl;
-    auto start = std::chrono::high_resolution_clock::now();
 
     for(auto st:studentai_list){
         if(st.galutinis_rezultatas>=5){
@@ -96,9 +95,6 @@ void issurusiuoti_failai(int kelintas_failas, const vector<studentas> &studentai
             vargsai.push_back(st);
         }
     }
-    auto end = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<double> diff = end-start;
-    std::cout << "Failu isrusiavimas uztrunka "<< diff.count() <<endl;
 
 #ifdef LIST
     std::list<studentas>::iterator it = std::find_if (studentai_list.begin(), studentai_list.end(),5.0);
@@ -107,12 +103,12 @@ void issurusiuoti_failai(int kelintas_failas, const vector<studentas> &studentai
 #endif //LIST
 
     auto start_1 = std::chrono::high_resolution_clock::now();
-    failu_uzpildymas_list(gudruoliai, gudruciai, kelintas_failas, "gudruciai");
+    failu_uzpildymas_list(gudruoliai, gudruciai, kelintas_failas, "gudruciai_l");
     auto end_1 = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> diff_1 = end_1-start_1;
     std::cout << "Gudruoliu listo failo isvedimas "<< diff_1.count() <<endl;
     auto start_2 = std::chrono::high_resolution_clock::now();
-    failu_uzpildymas_list(vargsai, vargseliai, kelintas_failas, "vargseliai");
+    failu_uzpildymas_list(vargsai, vargseliai, kelintas_failas, "vargseliai_l");
     auto end_2 = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> diff_2 = end_2-start_2;
     std::cout << "Vargseliu listo failo isvedimas "<< diff_2.count() <<endl;
@@ -132,15 +128,10 @@ void issurusiuoti_failai_v(int kelintas_failas, const vector<studentas> &student
 
     string line;
     std::ifstream myfile("rezultatai" + to_string(kelintas_failas) + ".txt");
-    auto start1 = std::chrono::high_resolution_clock::now();
     std::getline(myfile, line);
     std::getline(myfile, line);
     std::getline(myfile, line);
     studentai_is_sukurto_failo(myfile, line);
-    auto end1 = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<double> diff1 = end1 - start1;
-    std::cout << "Failo nuskaitymas " << diff1.count()<< endl;
-    auto start = std::chrono::high_resolution_clock::now();
 
     for(auto st:studentai){
         if(st.galutinis_rezultatas>=5){
@@ -150,9 +141,6 @@ void issurusiuoti_failai_v(int kelintas_failas, const vector<studentas> &student
             vargsai.push_back(st);
         }
     }
-    auto end = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<double> diff = end-start;
-    std::cout << "Failu isrusiavimas uztrunka "<< diff.count() <<endl;
     auto start_1 = std::chrono::high_resolution_clock::now();
     failu_uzpildymas(gudruoliai, gudruciai1, kelintas_failas, "gudruciai_v");
     auto end_1 = std::chrono::high_resolution_clock::now();
@@ -166,4 +154,85 @@ void issurusiuoti_failai_v(int kelintas_failas, const vector<studentas> &student
     std::cout<<endl;
 }
 
+void issurusiuoti_failai_vektorius(int kelintas_failas, vector<studentas> &studentai) {
+    ofstream gudruciai1;
+    ofstream vargseliai1;
+    vector<studentas> vargsai;
+    vargsai.reserve(10000010);
+    vargsai.clear();
 
+    string line;
+    std::ifstream myfile("rezultatai" + to_string(kelintas_failas) + ".txt");
+    std::getline(myfile, line);
+    std::getline(myfile, line);
+    std::getline(myfile, line);
+    studentai_is_sukurto_failo(myfile, line);
+    int kelintas = 0;
+
+    for(auto st:studentai){
+        if(st.galutinis_rezultatas<5){
+            vargsai.push_back(st);
+            kelintas++;
+        }
+    }
+    vector<studentas>::iterator it;
+    for (int i=0; i<kelintas; i++){
+    it = studentai.begin();
+    studentai.erase(it);
+    }
+    auto start_1 = std::chrono::high_resolution_clock::now();
+    failu_uzpildymas(studentai, gudruciai1, kelintas_failas, "gudruciai_vektorius");
+    auto end_1 = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> diff_1 = end_1-start_1;
+    std::cout << "Gudruoliu failo isvedimas "<< diff_1.count() <<endl;
+    auto start_2 = std::chrono::high_resolution_clock::now();
+    failu_uzpildymas(vargsai, vargseliai1, kelintas_failas, "vargseliai_vektorius");
+    auto end_2 = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> diff_2 = end_2-start_2;
+    std::cout << "Vargseliu failo isvedimas "<< diff_2.count() <<endl;
+    std::cout<<endl;
+}
+
+void issurusiuoti_failai_listai(int kelintas_failas, vector<studentas> &studentai) {
+    ofstream gudruciai;
+    ofstream vargseliai;
+    std::list<studentas> vargsai;
+    std::list<studentas> studentai_list;
+
+    string line;
+    std::ifstream myfile("rezultatai" + to_string(kelintas_failas) + ".txt");
+    std::getline(myfile, line);
+    std::getline(myfile, line);
+    studentai_list = studentai_is_sukurto_failo_list(myfile, line);
+    int kelintas = 0;
+    for(auto st:studentai_list){
+        if(st.galutinis_rezultatas<5){
+            vargsai.push_back(st);
+            kelintas++;
+        }
+    }
+    std::list<studentas>::iterator it1;
+
+    for (int i=0; i<kelintas; i++){
+        it1 = studentai_list.begin();
+        studentai_list.erase(it1);
+    }
+#ifdef LIST
+    std::list<studentas>::iterator it = std::find_if (studentai_list.begin(), studentai_list.end(),5.0);
+    vargsai.splice(vargsai.begin(), studentai_list, studentai_list.begin(), it);
+    gudruoliai.splice(gudruoliai.begin(), studentai_list, it, studentai_list.end());
+#endif //LIST
+
+    auto start_1 = std::chrono::high_resolution_clock::now();
+    failu_uzpildymas_list(studentai_list, gudruciai, kelintas_failas, "gudruciai_list");
+    auto end_1 = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> diff_1 = end_1-start_1;
+    std::cout << "Gudruoliu listo failo isvedimas "<< diff_1.count() <<endl;
+    auto start_2 = std::chrono::high_resolution_clock::now();
+    failu_uzpildymas_list(vargsai, vargseliai, kelintas_failas, "vargseliai_list");
+    auto end_2 = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> diff_2 = end_2-start_2;
+    std::cout << "Vargseliu listo failo isvedimas "<< diff_2.count() <<endl;
+    std::cout<<endl;
+
+}
