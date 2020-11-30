@@ -2,43 +2,40 @@
 
 
 
-void grazina_studenta_list(ofstream &output, studentas st) {
+void grazina_studenta_list(ofstream &output, Studentas st) {
     output.width(20);
-    output << st.Vardas << std::setw(20) << st.Pavarde << std::setw(20) << std::setprecision(2) << std::fixed
-           << std::left << std::setw(20) << st.galutinis_rezultatas << std::setw(20) << std::setprecision(2)
+    output << st.getVardas() << std::setw(20) << st.getPavarde() << std::setw(20) << std::setprecision(2) << std::fixed
+           << std::left << std::setw(20) << st.getGalutinisRezultatas() << std::setw(20) << std::setprecision(2)
            << std::fixed
-           << st.mediana << endl;
+           << st.getMediana() << endl;
 }
 
-void isvedimas(const vector<studentas> &studentai, ofstream& output){
+void isvedimas(const vector<Studentas> &studentai, ofstream& output){
 
     output << std::left << "Vardas" << std::setw(20) << "Pavarde" << std::setw(20) << "Galutinis vidurkis"
            << std::setw(20) << "Galutine mediana" << endl;
     output << "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -" << endl;
     for (auto st : studentai) {
+        st.setGalutinisRezultatas(st.galutinisRezultatas(st));
+        st.setMediana(st.medianosRezultatas(st));
         output.width(20);
-        output << st.Vardas << std::setw(20) << st.Pavarde << std::setw(20) << std::setprecision(2) << std::fixed
-               << std::left << std::setw(20) << galutinisRezultatas(st) << std::setw(20) << std::setprecision(2)
-               << std::fixed
-               << mediana(st);
-        if (st.Pavarde == studentai.back().Pavarde && st.Vardas == studentai.back().Vardas &&
-            st.galutinis_rezultatas == studentai.back().galutinis_rezultatas) {
-            break;
-        } else {
-            output <<endl;
-        }
+        output << st.getVardas() << std::setw(20) << st.getPavarde() << std::setw(20) << std::setprecision(2) << std::fixed
+               << std::left << std::setw(20) <<
+               st.getGalutinisRezultatas() << std::setw(20) << std::setprecision(2)
+               << std::fixed<< st.getMediana()<< endl;
     }
+
     output.close();
 }
 
-void failu_uzpildymas(const vector<studentas> &studentai, ofstream& output, int i, string pavadinimas) {
+void failu_uzpildymas(const vector<Studentas> &studentai, ofstream& output, int i, string pavadinimas) {
     output.width(20);
     string j = to_string(i);
     output.open(pavadinimas+j+".txt");
     isvedimas(studentai, output);
 }
 
-void isvedimas_list(const std::list<studentas> &studentai, ofstream& output){
+void isvedimas_list(const std::list<Studentas> &studentai, ofstream& output){
     output << std::left << "Vardas" << std::setw(20) << "Pavarde" << std::setw(20) << "Galutinis vidurkis"
            << std::setw(20) << "Galutine mediana" << endl;
     output << "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -" << endl;
@@ -48,49 +45,49 @@ void isvedimas_list(const std::list<studentas> &studentai, ofstream& output){
     output.close();
 }
 
-void failu_uzpildymas_list(const std::list<studentas> &studentai, ofstream& output, int i, string pavadinimas) {
+void failu_uzpildymas_list(const std::list<Studentas> &studentai, ofstream& output, int i, string pavadinimas) {
     output.width(20);
     string j = to_string(i);
     output.open(pavadinimas+j+".txt");
     isvedimas_list(studentai, output);
 }
 
-
-vector<studentas> generuojami_studentai_faile(int failo_dydis, int pazymiu_kiekis) {
-    studentas studenta;
-    std::vector<studentas> studentai;
+vector<Studentas> generuojami_studentai_faile(int failo_dydis, int pazymiu_kiekis, Studentas studentas) {
+    std::vector<Studentas> studentai;
     srand(time(NULL));
+    vector<int> pazymiai;
     for (int i=1; i<failo_dydis+1; i++) {
         string j = to_string(i);
-        studenta.Vardas = "Vardas" + j;
-        studenta.Pavarde = "Pavarde" + j;
+        studentas.setVardas("Vardas" + j);
+        studentas.setPavarde("Pavarde" + j);
         for (auto k = 0; k < pazymiu_kiekis; k++) {
-            studenta.nd_rezultatai.push_back(random());
+            pazymiai.push_back(random());
         }
-        studenta.egzamino_rezultatas = random();
-        studenta.galutinis_rezultatas = galutinisRezultatas(studenta);
-        studenta.mediana = mediana(studenta);
-        studentai.push_back(studenta);
-        studenta.nd_rezultatai.clear();
+        studentas.setNdRezultatus(pazymiai);
+        studentas.setEgzaminoRezultata(random());
+        studentas.setGalutinisRezultatas(studentas.galutinisRezultatas(studentas));
+        studentas.setMediana(studentas.medianosRezultatas(studentas));
+        studentai.push_back(studentas);
+        pazymiai.clear();
     }
     return studentai;
 }
 
-void issurusiuoti_failai(int kelintas_failas, const vector<studentas> &studentai) {
+void issurusiuoti_failai(int kelintas_failas, const vector<Studentas> &studentai, Studentas studentas) {
     ofstream gudruciai;
     ofstream vargseliai;
-    std::list<studentas> vargsai;
-    std::list<studentas> gudruoliai;
-    std::list<studentas> studentai_list;
+    std::list<Studentas> vargsai;
+    std::list<Studentas> gudruoliai;
+    std::list<Studentas> studentai_list;
 
     string line;
     std::ifstream myfile("rezultatai" + to_string(kelintas_failas) + ".txt");
     std::getline(myfile, line);
     std::getline(myfile, line);
-    studentai_list = studentai_is_sukurto_failo_list(myfile, line);
+    studentai_list = studentai_is_sukurto_failo_list(myfile, line, studentas);
     auto start_1 = std::chrono::high_resolution_clock::now();
     for(auto st:studentai_list){
-        if(st.galutinis_rezultatas>=5){
+        if(st.getGalutinisRezultatas()>=5){
             gudruoliai.push_back(st);
         }
         else{
@@ -111,13 +108,13 @@ void issurusiuoti_failai(int kelintas_failas, const vector<studentas> &studentai
     failu_uzpildymas_list(vargsai, vargseliai, kelintas_failas, "vargseliai_l");
 }
 
-void issurusiuoti_failai_v(int kelintas_failas, const vector<studentas> &studentai) {
+void issurusiuoti_failai_v(int kelintas_failas, const vector<Studentas> &studentai, Studentas studentas) {
     ofstream gudruciai1;
     ofstream vargseliai1;
-    vector<studentas> vargsai;
+    vector<Studentas> vargsai;
     vargsai.reserve(10000010);
     vargsai.clear();
-    vector<studentas> gudruoliai;
+    vector<Studentas> gudruoliai;
     gudruoliai.reserve(10000010);
     gudruoliai.clear();
 
@@ -126,10 +123,10 @@ void issurusiuoti_failai_v(int kelintas_failas, const vector<studentas> &student
     std::getline(myfile, line);
     std::getline(myfile, line);
     std::getline(myfile, line);
-    studentai_is_sukurto_failo(myfile, line);
+    studentai_is_sukurto_failo(myfile, line, studentas);
     auto start_1 = std::chrono::high_resolution_clock::now();
     for(auto st:studentai){
-        if(st.galutinis_rezultatas>=5){
+        if(st.getGalutinisRezultatas()>=5){
             gudruoliai.push_back(st);
         }
         else{
@@ -143,10 +140,10 @@ void issurusiuoti_failai_v(int kelintas_failas, const vector<studentas> &student
     failu_uzpildymas(vargsai, vargseliai1, kelintas_failas, "vargseliai_v");
 }
 
-void issurusiuoti_failai_vektorius(int kelintas_failas, vector<studentas> &studentai) {
+void issurusiuoti_failai_vektorius(int kelintas_failas, vector<Studentas> &studentai, Studentas studentas) {
     ofstream gudruciai1;
     ofstream vargseliai1;
-    vector<studentas> vargsai;
+    vector<Studentas> vargsai;
     vargsai.reserve(10000010);
     vargsai.clear();
 
@@ -155,17 +152,17 @@ void issurusiuoti_failai_vektorius(int kelintas_failas, vector<studentas> &stude
     std::getline(myfile, line);
     std::getline(myfile, line);
     std::getline(myfile, line);
-    studentai_is_sukurto_failo(myfile, line);
+    studentai_is_sukurto_failo(myfile, line, studentas);
     int kelintas = 0;
     auto start_1 = std::chrono::high_resolution_clock::now();
     for(auto st:studentai){
-        if(st.galutinis_rezultatas<5){
+        if(st.getGalutinisRezultatas()<5){
             vargsai.push_back(st);
             kelintas++;
         }
     }
 
-    vector<studentas>::iterator it;
+    vector<Studentas>::iterator it;
     it = studentai.begin();
     studentai.erase(it, it+kelintas);
 
@@ -173,34 +170,30 @@ void issurusiuoti_failai_vektorius(int kelintas_failas, vector<studentas> &stude
     std::chrono::duration<double> diff_1 = end_1-start_1;
     std::cout << "Failo dalinimas "<< diff_1.count() <<endl<<endl;
 
-
-
-
-
     failu_uzpildymas(studentai, gudruciai1, kelintas_failas, "gudruciai_vektorius");
     failu_uzpildymas(vargsai, vargseliai1, kelintas_failas, "vargseliai_vektorius");
 }
 
-void issurusiuoti_failai_listai(int kelintas_failas, vector<studentas> &studentai) {
+void issurusiuoti_failai_listai(int kelintas_failas, vector<Studentas> &studentai, Studentas studentas) {
     ofstream gudruciai;
     ofstream vargseliai;
-    std::list<studentas> vargsai;
-    std::list<studentas> studentai_list;
+    std::list<Studentas> vargsai;
+    std::list<Studentas> studentai_list;
 
     string line;
     std::ifstream myfile("rezultatai" + to_string(kelintas_failas) + ".txt");
     std::getline(myfile, line);
     std::getline(myfile, line);
-    studentai_list = studentai_is_sukurto_failo_list(myfile, line);
+    studentai_list = studentai_is_sukurto_failo_list(myfile, line, studentas);
     int kelintas = 0;
     auto start_1 = std::chrono::high_resolution_clock::now();
     for(auto st:studentai_list){
-        if(st.galutinis_rezultatas<5){
+        if(st.getGalutinisRezultatas()<5){
             vargsai.push_back(st);
             kelintas++;
         }
     }
-    std::list<studentas>::iterator it1;
+    std::list<Studentas>::iterator it1;
 
     for (int i=0; i<kelintas; i++){
         it1 = studentai_list.begin();

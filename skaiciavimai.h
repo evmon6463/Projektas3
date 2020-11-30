@@ -6,7 +6,4 @@
 
 using std::sort;
 
-float galutinisRezultatas(studentas st);
-float mediana(studentas st);
-
 #endif //PROJEKTAS_SU_VEKTORIAIS_SKAICIAVIMAI_H

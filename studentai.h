@@ -23,9 +23,7 @@ using std::endl;
 using std::cin;
 using std::vector;
 
-vector<studentas> ivesti_studentai();
-void nuskaityti_studentai(std::ifstream &myfile, string line);
-void studentai_is_sukurto_failo(std::ifstream &myfile, string line);
-std::list<struct studentas> studentai_is_sukurto_failo_list(std::ifstream &myfile, string line);
+void studentai_is_sukurto_failo(std::ifstream &myfile, string line, Studentas studentas);
+std::list<Studentas> studentai_is_sukurto_failo_list(std::ifstream &myfile, string line, Studentas studentas);
 
 #endif //PROJEKTAS_SU_VEKTORIAIS_STUDENTAI_H

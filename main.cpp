@@ -3,6 +3,7 @@
 #include "isvedimas.h"
 #include "studentai.h"
 #include "studentai_faile.h"
+#include "rusiavimas.h"
 #include <chrono>
 #include <list>
 
@@ -11,6 +12,8 @@ using std::cout;
 using std::endl;
 using std::cin;
 
+Studentas::Studentas() {
+}
 int main() {
     char atsakymas;
     string line;
@@ -18,50 +21,50 @@ int main() {
          << "Jeigu norite ivesti patys I, Sukurti faila S,"
             " Nuskaityti is failo N" << endl;
     bool ar = true;
+    Studentas studentas;
     while(ar) {
         cin >> atsakymas;
         switch (atsakymas) {
             case 'I': {
-                vector<studentas> studentai = ivesti_studentai();
-                informacijos_isvedimas(studentai);
+                studentas.ivesti_studenta(studentas);
                 ar=false;
                 break;
             }
             case 'S': {
                 int failo_dydis=1000;
                 int pazymiu_kiekis;
-                vector<studentas> studentai;
-
+                vector<Studentas> studentai;
                 studentai.reserve(10000010);
                 ofstream output;
                 output.clear();
+                Studentas studentas;
                 pazymiu_kiekis = sugeneruotu_pazymiu_kiekis();
                 for (int kelintas_failas = 1; kelintas_failas < 5; kelintas_failas++){
-                    studentai = generuojami_studentai_faile(failo_dydis, pazymiu_kiekis);
-                    rusiavimas_pagal_galutini_pazymi(studentai);
+                    studentai = generuojami_studentai_faile(failo_dydis, pazymiu_kiekis, studentas);
+                    studentas.rusiavimas_pagal_galutini_pazymi(studentai);
                     failu_uzpildymas(studentai,output, kelintas_failas,"rezultatai");
                     std::cout <<failo_dydis<<" failas su vektoriais 1 strategija"<<endl;
                     output.close();
 
-                    issurusiuoti_failai_v(kelintas_failas, studentai);
+                    issurusiuoti_failai_v(kelintas_failas, studentai, studentas);
                     cout<<failo_dydis<<" failas su listais 1 strategija"<<endl;
-                    issurusiuoti_failai(kelintas_failas, studentai);
+                    issurusiuoti_failai(kelintas_failas, studentai, studentas);
 
                     std::cout <<failo_dydis<<" failas su vektoriais 2 strategija"<<endl;
-                    issurusiuoti_failai_vektorius(kelintas_failas, studentai);
+                    issurusiuoti_failai_vektorius(kelintas_failas, studentai, studentas);
 
                     std::cout <<failo_dydis<<" failas su listais 2 strategija"<<endl;
-                    issurusiuoti_failai_listai(kelintas_failas, studentai);
+                    issurusiuoti_failai_listai(kelintas_failas, studentai, studentas);
                     failo_dydis=failo_dydis*10;
                 }
                 ar = false;
                 break;
             }
             case 'N': {
-                std::ifstream myfile("kursiokai.txt");
+                std::ifstream myfile("kursiokai1.txt");
                 std::getline(myfile, line);
-                nuskaityti_studentai(myfile, line);
-                ar=false;
+                studentas.nuskaityto_studento_duomenys(myfile, line, studentas);
+                ar = false;
                 break;
             }
             default:

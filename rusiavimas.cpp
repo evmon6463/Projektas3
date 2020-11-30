@@ -1,21 +1,21 @@
 #include "rusiavimas.h"
 
-void string_rusiavimas(vector<studentas> &studentai) {
-    sort(studentai.begin(), studentai.end(), [](const studentas &s1, const studentas &s2) {
-             if (s1.Vardas.find("0123456789")) {
-                 if (s1.Vardas.size() != s2.Vardas.size()) {
-                     return (s1.Vardas.length() < s2.Vardas.length());
+/*void string_rusiavimas(vector<Studentas> &studentai) {
+    sort(studentai.begin(), studentai.end(), [](const Studentas &s1, const Studentas &s2) {
+             if (s1.vardas_.find("0123456789")) {
+                 if (s1.vardas_.size() != s2.vardas_.size()) {
+                     return (s1.vardas_.length() < s2.vardas_.length());
                  }
              }
-             return (s1.Vardas < s2.Vardas);
+             return (s1.vardas_ < s2.vardas_);
          }
     );
-}
+}*/
 
-void rusiavimas_pagal_galutini_pazymi(vector<studentas> &studentai)
+void Studentas::rusiavimas_pagal_galutini_pazymi(vector<Studentas> &studentai)
 {
-    vector<studentas> surusiuoti_studentai;
+    vector<Studentas> surusiuoti_studentai;
     surusiuoti_studentai.reserve(10000010);
-    sort(studentai.begin(), studentai.end(), [](const studentas &left, const studentas &right)
+    std::sort(studentai.begin(), studentai.end(), [](const Studentas &left, const Studentas &right)
     {return (left.galutinis_rezultatas < right.galutinis_rezultatas);});
 }

@@ -12,6 +12,6 @@ using std::setprecision;
 using std::fixed;
 using std::left;
 
-void informacijos_isvedimas(const vector<studentas> &studentai);
+void informacijos_isvedimas(vector<Studentas> studentai);
 
 #endif //PROJEKTAS_SU_VEKTORIAIS_ISVEDIMAS_H
