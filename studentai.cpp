@@ -61,6 +61,7 @@ void Studentas::nuskaityto_studento_duomenys(std::ifstream &myfile, string line,
             }
             studentai.push_back(sukurti_nuskaityta_studenta(nuskaityta_eilute, ilgis, studentas));
         }
+        string_rusiavimas(studentai);
         informacijos_isvedimas(studentai);
     } else cout << "Unable to open file";
     myfile.close();

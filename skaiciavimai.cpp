@@ -13,15 +13,15 @@ float Studentas::galutinisRezultatas(Studentas studentas) {
     return galutinis_rezultatas;
 }
 
-float Studentas::medianosRezultatas(Studentas st) {
+float Studentas::medianosRezultatas(Studentas studentas) {
     float mediana = 0;
-    int size = st.nd_rezultatai.size();
-    sort(st.nd_rezultatai.begin(), st.nd_rezultatai.end());
+    int size = this->nd_rezultatai.size();
+    sort(this->nd_rezultatai.begin(), this->nd_rezultatai.end());
     if (size % 2 == 0) {
-        mediana = ((st.nd_rezultatai[size / 2 - 1] + st.nd_rezultatai[size / 2]) / 2.0);
+        mediana = ((this->nd_rezultatai[size / 2 - 1] + this->nd_rezultatai[size / 2]) / 2.0);
         return mediana;
     } else {
-        mediana = st.nd_rezultatai[size / 2];
+        mediana = this->nd_rezultatai[size / 2];
         return mediana;
     }
 }

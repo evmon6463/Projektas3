@@ -1,12 +1,7 @@
 #include <iostream>
 #include "studentas.h"
-#include "isvedimas.h"
 #include "studentai.h"
 #include "studentai_faile.h"
-#include "rusiavimas.h"
-#include <chrono>
-#include <list>
-
 
 using std::cout;
 using std::endl;
@@ -14,6 +9,18 @@ using std::cin;
 
 Studentas::Studentas() {
 }
+
+std::ostream& operator<<(std::ostream &output, const Studentas &stu) { //priskyrimas
+    output.width(20);
+    output << std::left << stu.getVardas() <<  std::setw(20) << stu.getPavarde() << std::left << std::setw(20) << std::setprecision(2) << std::fixed
+         << std::left << std::setw(20) <<
+         stu.getGalutinisRezultatas() << std::setw(20) << std::setprecision(2)
+         << std::fixed
+         << stu.getMediana()
+         << endl;
+    return output;
+}
+
 int main() {
     char atsakymas;
     string line;
@@ -37,7 +44,6 @@ int main() {
                 studentai.reserve(10000010);
                 ofstream output;
                 output.clear();
-                Studentas studentas;
                 pazymiu_kiekis = sugeneruotu_pazymiu_kiekis();
                 for (int kelintas_failas = 1; kelintas_failas < 5; kelintas_failas++){
                     studentai = generuojami_studentai_faile(failo_dydis, pazymiu_kiekis, studentas);

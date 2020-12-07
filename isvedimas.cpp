@@ -9,12 +9,12 @@ void informacijos_isvedimas(vector<Studentas> studentai) {
         st.setGalutinisRezultatas(st.galutinisRezultatas(st));
         st.setMediana(st.medianosRezultatas(st));
         cout.width(20);
-        cout << st.getVardas() << std::setw(20) << st.getPavarde() << std::setw(20) << std::setprecision(2) << std::fixed
-             << std::left << std::setw(20) <<
-             st.getGalutinisRezultatas() << std::setw(20) << std::setprecision(2)
-             << std::fixed
-             << st.getMediana()
-             << endl;
+        cout << std::left << st.getVardas() <<  std::setw(20) << st.getPavarde() << std::left << std::setw(20) << std::setprecision(2) << std::fixed
+               << std::left << std::setw(20) <<
+               st.getGalutinisRezultatas() << std::setw(20) << std::setprecision(2)
+               << std::fixed
+               << st.getMediana()
+               << endl;
     }
 }
 

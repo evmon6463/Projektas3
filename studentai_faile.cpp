@@ -12,17 +12,14 @@ void grazina_studenta_list(ofstream &output, Studentas st) {
 
 void isvedimas(const vector<Studentas> &studentai, ofstream& output){
 
-    output << std::left << "Vardas" << std::setw(20) << "Pavarde" << std::setw(20) << "Galutinis vidurkis"
+    output << std::left << "Vardas" << std::setw(20) << "Pavardess" << std::setw(20) << "Galutinis vidurkis"
            << std::setw(20) << "Galutine mediana" << endl;
     output << "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -" << endl;
     for (auto st : studentai) {
         st.setGalutinisRezultatas(st.galutinisRezultatas(st));
         st.setMediana(st.medianosRezultatas(st));
-        output.width(20);
-        output << st.getVardas() << std::setw(20) << st.getPavarde() << std::setw(20) << std::setprecision(2) << std::fixed
-               << std::left << std::setw(20) <<
-               st.getGalutinisRezultatas() << std::setw(20) << std::setprecision(2)
-               << std::fixed<< st.getMediana()<< endl;
+        Studentas stu(st.getVardas(), st.getPavarde(), st.getGalutinisRezultatas(), st.getMediana(), st.getNdRezultatus(), st.getEgzaminoRezultata()); //call copy constructor
+        output<<stu;
     }
 
     output.close();
