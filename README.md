@@ -81,4 +81,4 @@ Su šiuo operatoriumi yra išvedami duomenys į failus
 
 #v1.5
 
-Sukurta klasė `Zmogus`  skirta bendrai aprašyti žmogų, o `Studentas` klasė tapo jos išvestine (derived) klase.
+Sukurta klasė `Zmogus` skirta bendrai aprašyti žmogų, o `Studentas` klasė tapo jos išvestine (derived) klase.
