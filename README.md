@@ -60,7 +60,7 @@ Viską ką programa padarys tai išves studento vardą, pavardę nuskaityta iš 
 8. [V1.2 dalis](https://github.com/evmon6463/Projektas2/releases/tag/v1.2)
 9. [V1.5 dalis](https://github.com/evmon6463/Projektas2/releases/tag/v1.5)
 
-#v1.1
+# v1.1
 
 Programa skaičiuoja kiek laiko trunka failo dalinimas į tuos, kurių galutinis rezultatas didesnis arba lygus 5, ir į tuos kurių mažesnis. Paleidus Run vektoriaus 2 strategiją.
 
@@ -72,7 +72,7 @@ Programa skaičiuoja kiek laiko trunka failo dalinimas į tuos, kurių galutinis
 |O2|	0.0289502|	0.3957|
 |O3|	0.0289242|	0.332116|
 
-#v1.2
+# v1.2
 
 Sukurtas priskyrimo operatorius operator<< pagal "Rule of three" taisyklę jis turi:
 
@@ -81,6 +81,6 @@ Konstruktoriaus kopija
 Priskyrimo kopija
 Su šiuo operatoriumi yra išvedami duomenys į failus
 
-#v1.5
+# v1.5
 
 Sukurta klasė `Zmogus`  skirta bendrai aprašyti žmogų, o `Studentas` klasė tapo jos išvestine (derived) klase.
