@@ -1,6 +1,6 @@
 #include "rusiavimas.h"
 
-void Studentas::string_rusiavimas(vector<Studentas> &studentai) {
+void Studentas::string_rusiavimas(vector<Studentas> studentai) {
     sort(studentai.begin(), studentai.end(), [](const Studentas &s1, const Studentas &s2) {
              if (s1.getVardas().find("0123456789")) {
                  if (s1.getVardas().size() != s2.getVardas().size()) {

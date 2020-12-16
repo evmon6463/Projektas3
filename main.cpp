@@ -12,7 +12,7 @@ Studentas::Studentas() {
 
 std::ostream& operator<<(std::ostream &output, const Studentas &stu) { //priskyrimas
     output.width(20);
-    output << std::left << stu.getVardas() <<  std::setw(20) << stu.getPavarde() << std::left << std::setw(20) << std::setprecision(2) << std::fixed
+    output << std::left << stu.getVardas()<<  std::setw(20) << stu.getPavarde() << std::left << std::setw(20) << std::setprecision(2) << std::fixed
          << std::left << std::setw(20) <<
          stu.getGalutinisRezultatas() << std::setw(20) << std::setprecision(2)
          << std::fixed
@@ -28,7 +28,8 @@ int main() {
          << "Jeigu norite ivesti patys I, Sukurti faila S,"
             " Nuskaityti is failo N" << endl;
     bool ar = true;
-    Studentas studentas;
+    Studentas studentas(" ", " ", 0, 0, {0, 0, 0}, 0);
+
     while(ar) {
         cin >> atsakymas;
         switch (atsakymas) {
