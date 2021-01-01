@@ -109,10 +109,10 @@ void issurusiuoti_failai_v(int kelintas_failas, const vector<Studentas> &student
     ofstream gudruciai1;
     ofstream vargseliai1;
     vector<Studentas> vargsai;
-    vargsai.reserve(10000010);
+    vargsai.reserve(1000010);
     vargsai.clear();
     vector<Studentas> gudruoliai;
-    gudruoliai.reserve(10000010);
+    gudruoliai.reserve(1000010);
     gudruoliai.clear();
 
     string line;
@@ -141,7 +141,7 @@ void issurusiuoti_failai_vektorius(int kelintas_failas, vector<Studentas> &stude
     ofstream gudruciai1;
     ofstream vargseliai1;
     vector<Studentas> vargsai;
-    vargsai.reserve(10000010);
+    vargsai.reserve(1000010);
     vargsai.clear();
 
     string line;

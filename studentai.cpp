@@ -69,10 +69,10 @@ void Studentas::nuskaityto_studento_duomenys(std::ifstream &myfile, string line,
 
 void studentai_is_sukurto_failo(std::ifstream &myfile, string line, Studentas studentas) {
     vector<Studentas> studentai;
-    studentai.reserve(10000010);
+    studentai.reserve(1000010);
     studentai.clear();
     vector<string> nuskaityta_eilute;
-    nuskaityta_eilute.reserve(10000000);
+    nuskaityta_eilute.reserve(1000000);
     nuskaityta_eilute.clear();
     if (myfile.is_open()) {
         std::stringstream lineStream(line);
@@ -90,7 +90,7 @@ void studentai_is_sukurto_failo(std::ifstream &myfile, string line, Studentas st
 std::list<Studentas> studentai_is_sukurto_failo_list(std::ifstream &myfile, string line, Studentas studentas) {
     std::list<Studentas> studentai;
     vector<string> nuskaityta_eilute;
-    nuskaityta_eilute.reserve(10000000);
+    nuskaityta_eilute.reserve(1000000);
     nuskaityta_eilute.clear();
 
     if (myfile.is_open()) {

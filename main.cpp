@@ -42,11 +42,11 @@ int main() {
                 int failo_dydis=1000;
                 int pazymiu_kiekis;
                 vector<Studentas> studentai;
-                studentai.reserve(10000010);
+                studentai.reserve(1000010);
                 ofstream output;
                 output.clear();
                 pazymiu_kiekis = sugeneruotu_pazymiu_kiekis();
-                for (int kelintas_failas = 1; kelintas_failas < 5; kelintas_failas++){
+                for (int kelintas_failas = 1; kelintas_failas < 4; kelintas_failas++){
                     studentai = generuojami_studentai_faile(failo_dydis, pazymiu_kiekis, studentas);
                     studentas.rusiavimas_pagal_galutini_pazymi(studentai);
                     failu_uzpildymas(studentai,output, kelintas_failas,"rezultatai");
@@ -66,6 +66,7 @@ int main() {
                 }
                 ar = false;
                 break;
+
             }
             case 'N': {
                 std::ifstream myfile("kursiokai1.txt");
@@ -77,6 +78,10 @@ int main() {
             default:
                 cout << "Klaida" << endl;
         }
+        system("PAUSE");
     }
+
+
+
 }
 
