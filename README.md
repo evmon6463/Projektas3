@@ -59,6 +59,8 @@ Viską ką programa padarys tai išves studento vardą, pavardę nuskaityta iš 
 7. [V1.1 dalis](https://github.com/evmon6463/Projektas2/releases/tag/V1.1)
 8. [V1.2 dalis](https://github.com/evmon6463/Projektas2/releases/tag/v1.2)
 9. [V1.5 dalis](https://github.com/evmon6463/Projektas2/releases/tag/v1.5)
+10. [V2.0 dalis](https://github.com/evmon6463/Projektas2/releases/tag/v2.0)
+11. [V3.0 dalis](https://github.com/evmon6463/Projektas2/releases/tag/v3.0)
 
 # v1.1
 
@@ -84,3 +86,12 @@ Su šiuo operatoriumi yra išvedami duomenys į failus
 # v1.5
 
 Sukurta klasė `Zmogus`  skirta bendrai aprašyti žmogų, o `Studentas` klasė tapo jos išvestine (derived) klase.
+
+# v2.0
+Sukurti du googleTest testai. 
+Pirmasis tikrina ar duotas studento Vardas ir Pavarde sutampa su pateiktu vardu ir pavarde. 
+Antrasis testas tikrina ar random funkcija kuria tuos pačius pažymius ar jie skiriasi. Taip pat sukurtas doxygen failas, kuriame yra struktūrizuota informacija apie projektą.
+
+# v3.0
+
+Sukurtas Projekto `.exe` failas, kuris yra `cmake-build-debug' aplankale.
