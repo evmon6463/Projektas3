@@ -94,4 +94,4 @@ Antrasis testas tikrina ar random funkcija kuria tuos pačius pažymius ar jie s
 
 # v3.0
 
-Sukurtas Projekto `.exe` failas, kuris yra `cmake-build-debug' aplankale.
+Sukurtas Projekto `.exe` failas, kuris yra `cmake-build-debug` aplankale.
