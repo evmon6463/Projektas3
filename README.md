@@ -60,7 +60,7 @@ Viską ką programa padarys tai išves studento vardą, pavardę nuskaityta iš 
 8. [V1.2 dalis](https://github.com/evmon6463/Projektas2/releases/tag/v1.2)
 9. [V1.5 dalis](https://github.com/evmon6463/Projektas2/releases/tag/v1.5)
 10. [V2.0 dalis](https://github.com/evmon6463/Projektas2/releases/tag/v2.0)
-11. [V3.0 dalis](https://github.com/evmon6463/Projektas2/releases)
+11. [V3.0 dalis](https://github.com/evmon6463/Projektas3/releases)
 
 # v1.1
 
